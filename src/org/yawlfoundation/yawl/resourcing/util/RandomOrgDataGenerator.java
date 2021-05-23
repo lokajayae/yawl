@@ -212,7 +212,7 @@ public class RandomOrgDataGenerator {
                 }
             }
 
-            Participant p = new Participant(last, first, user, true);
+            Participant p = new Participant(last, first, "Dummy Address","dummy@email.com", user, true);
 
             p.setAdministrator(rand.nextBoolean());
             p.setPassword(PasswordEncryptor.encrypt("apple", "apple"));
