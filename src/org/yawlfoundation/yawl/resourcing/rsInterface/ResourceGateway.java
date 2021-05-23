@@ -255,7 +255,9 @@ public class ResourceGateway extends YHttpServlet {
             if ((userid != null) && (! _rm.isKnownUserID(userid))) {
                 String lastName = req.getParameter("lastname");
                 String firstName = req.getParameter("firstname");
-                Participant p = new Participant(lastName, firstName, userid);
+                String address = req.getParameter("address");
+                String email = req.getParameter("email");
+                Participant p = new Participant(lastName, firstName, address, email, userid);
                 p.setAdministrator(req.getParameter("admin").equalsIgnoreCase("true"));
                 String encrypt = req.getParameter("encrypt");
                 if (encrypt != null) {

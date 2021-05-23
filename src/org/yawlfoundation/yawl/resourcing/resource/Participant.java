@@ -45,6 +45,8 @@ public class Participant extends AbstractResource implements Cloneable {
     private String _firstname ;
     private String _userID ;
     private String _password ;
+    private String _address;
+    private String _email;
     private boolean _isAdministrator;
     private Set<Position> _positions = new HashSet<Position>();
     private Set<Role> _roles = new HashSet<Role>();
@@ -72,24 +74,28 @@ public class Participant extends AbstractResource implements Cloneable {
         _resourceID = id ;
     }
 
-    public Participant(String lastName, String firstName, String userID) {
+    public Participant(String lastName, String firstName, String address, String email, String userID) {
         super();
         setUserID(userID) ;
+        _address = address;
+        _email = email;
         _lastname = lastName ;
         _firstname = firstName ;
     }
 
-    public Participant(String lastName, String firstName, String userid, boolean persist) {
-        this(lastName, firstName, userid) ;
+    public Participant(String lastName, String firstName, String address, String email, String userid, boolean persist) {
+        this(lastName, firstName, address, email, userid) ;
         _persisting = persist ;
     }
 
     public Participant(String lastname, String firstname, String userID,
-                       boolean isAdministrator, Set<Position> positions,
-                       Set<Role> roles, Set<Capability> capabilities) {
+                       String address, String email, boolean isAdministrator, 
+                       Set<Position> positions, Set<Role> roles, Set<Capability> capabilities) {
         this(true) ;
         _lastname = lastname;
         _firstname = firstname;
+        _email = email;
+        _address = address;
         setUserID(userID) ;
         _isAdministrator = isAdministrator;
         _positions = positions;
@@ -125,6 +131,8 @@ public class Participant extends AbstractResource implements Cloneable {
         super.merge(p);
         _lastname = p.getLastName();
         _firstname = p.getFirstName();
+        _address = p.getAdress();
+        _email = p.getEmail();
         setUserID(p.getUserID());
         _isAdministrator = p.isAdministrator();
         _password = p.getPassword();
@@ -194,6 +202,18 @@ public class Participant extends AbstractResource implements Cloneable {
             pw = PasswordEncryptor.encrypt(pw, pw);
         }
         setPassword(pw) ;        
+    }
+    
+    public String getAdress() {return _address;}
+    
+    public void setAddress(String address) {
+    	_address = address;
+    }
+    
+    public String getEmail() { return _email; }
+    
+    public void setEmail(String email) {
+    	_email = email;
     }
 
     public boolean isValidPassword(String password) {
@@ -446,6 +466,8 @@ public class Participant extends AbstractResource implements Cloneable {
         xml.append(StringUtil.wrapEscaped(_userID, "userid"));
         xml.append(StringUtil.wrapEscaped(_firstname, "firstname"));
         xml.append(StringUtil.wrapEscaped(_lastname, "lastname"));
+        xml.append(StringUtil.wrapEscaped(_address, "address"));
+        xml.append(StringUtil.wrapEscaped(_email, "email"));
         xml.append(StringUtil.wrapEscaped(String.valueOf(_isAdministrator), "isAdministrator")) ;
 
         xml.append("<roles>");
@@ -474,6 +496,8 @@ public class Participant extends AbstractResource implements Cloneable {
         setUserID(JDOMUtil.decodeEscapes(e.getChildText("userid")));
         setFirstName(JDOMUtil.decodeEscapes(e.getChildText("firstname")));
         setLastName(JDOMUtil.decodeEscapes(e.getChildText("lastname")));
+        setAddress(JDOMUtil.decodeEscapes(e.getChildText("address")));
+        setEmail(JDOMUtil.decodeEscapes(e.getChildText("email")));
         setAdministrator(e.getChildText("isAdministrator").equals("true"));
     }
 

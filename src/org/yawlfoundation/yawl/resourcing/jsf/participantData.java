@@ -35,6 +35,16 @@ import javax.faces.event.ValueChangeEvent;
  *  Last Date: 09/05/2008
  */
 
+/**
+ * Add Address and Email Field
+ * 
+ * @author Evan
+ * 
+ * Variable : Label and Text Box for Address and Email
+ * Method : populateField, clearField, EnableField, saveChanges
+ *
+ */
+
 public class participantData extends AbstractPageBean {
 
     // REQUIRED AND/OR IMPLEMENTED ABSTRACT PAGE BEAN METHODS //
@@ -179,6 +189,21 @@ public class participantData extends AbstractPageBean {
     public Label getLblLastName() { return lblLastName; }
 
     public void setLblLastName(Label l) { lblLastName = l; }
+    
+    /* =========New Addition============ */
+    private Label lblAddress = new Label();
+    
+    public Label getLblAddress() { return lblAddress; }
+    
+    public void setLblAddress(Label l) { lblAddress = l;}
+    
+    
+    private Label lblEmail = new Label();
+    
+    public Label getLblEmail() { return lblEmail; }
+    
+    public void setLblEmail(Label l) { lblEmail = l;}
+    /* =========End Of New Addition============*/
 
     
     private Label lblDesc = new Label();
@@ -278,6 +303,21 @@ public class participantData extends AbstractPageBean {
 
     public void setTxtLastName(TextField tf) { txtLastName = tf; }
 
+    
+    /* =============New Addition=============== */
+    private TextField txtAddress = new TextField();
+
+    public TextField getTxtAddress() { return txtAddress; }
+
+    public void setTxtAddress(TextField tf) { txtAddress = tf; }
+    
+    
+    private TextField txtEmail = new TextField();
+
+    public TextField getTxtEmail() { return txtEmail; }
+
+    public void setTxtEmail(TextField tf) { txtEmail = tf; }
+    /* ==============End of Addition========== */
 
     private TextField txtUserID = new TextField();
 
@@ -650,6 +690,8 @@ public class participantData extends AbstractPageBean {
         // set simple fields
         txtFirstName.setText(p.getFirstName());
         txtLastName.setText(p.getLastName());
+        txtAddress.setText(p.getAdress());
+        txtEmail.setText(p.getEmail());
         txtUserID.setText(p.getUserID());
         txtDesc.setText(p.getDescription());
         txtNotes.setText(p.getNotes());
@@ -680,6 +722,8 @@ public class participantData extends AbstractPageBean {
         // clear simple fields
         txtFirstName.setText("");
         txtLastName.setText("");
+        txtAddress.setText("");
+        txtEmail.setText("");
         txtUserID.setText("");
         txtDesc.setText("");
         txtNotes.setText("");
@@ -709,6 +753,8 @@ public class participantData extends AbstractPageBean {
             // enable simple fields
             txtFirstName.setDisabled(!enabled);
             txtLastName.setDisabled(!enabled);
+            txtAddress.setDisabled(!enabled);
+            txtEmail.setDisabled(!enabled);
             txtUserID.setDisabled(!enabled);
             txtDesc.setDisabled(!enabled);
             txtNotes.setDisabled(!enabled);
@@ -739,6 +785,8 @@ public class participantData extends AbstractPageBean {
         // update fields     
         p.setFirstName(_sb.stripXMLChars((String) txtFirstName.getText()));
         p.setLastName(_sb.stripXMLChars((String) txtLastName.getText()));
+        p.setAddress(_sb.stripXMLChars((String) txtAddress.getText()));
+        p.setEmail(_sb.stripXMLChars((String) txtEmail.getText()));
         p.setUserID(_sb.stripXMLChars((String) txtUserID.getText()));
         p.setDescription(_sb.stripXMLChars((String) txtDesc.getText()));
         p.setNotes(_sb.stripXMLChars((String) txtNotes.getText()));
